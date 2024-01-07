@@ -62,7 +62,12 @@ function App() {
       <Flex direction="column" align="right">
         {/* ... other components */}
         {isLoggedIn && (
-          <Button onClick={handleLogout} alignSelf="flex-end" m={4}>
+          <Button
+            onClick={handleLogout}
+            alignSelf="flex-end"
+            m={4}
+            colorScheme="red"
+          >
             Disconnect
           </Button>
         )}

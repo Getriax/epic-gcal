@@ -16,6 +16,9 @@ import {
   Button,
   useDisclosure,
   TableContainer,
+  VStack,
+  Text,
+  HStack,
 } from '@chakra-ui/react';
 import { EventItem } from '../api/calendar.ts';
 
@@ -30,6 +33,24 @@ export const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
   const handleEventClick = (event: EventItem) => {
     setSelectedEvent(event);
     onOpen();
+  };
+
+  const prettyDate = (dateString: string) => {
+    const date = new Date(dateString);
+
+    const formatter = new Intl.DateTimeFormat('en-GB', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short',
+      hour12: false,
+    });
+
+    return formatter.format(date);
   };
 
   return (
@@ -52,7 +73,7 @@ export const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
                 onClick={() => handleEventClick(event)}
               >
                 <Td>{event.name}</Td>
-                <Td>{event.date}</Td>
+                <Td>{prettyDate(event.date)}</Td>
                 <Td>
                   {event.attendees
                     .map((attendee) => attendee.name || attendee.email)
@@ -68,22 +89,34 @@ export const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
       {selectedEvent && (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
-          <ModalContent borderRadius="lg" boxShadow="md">
+          <ModalContent>
             <ModalHeader>{selectedEvent.name}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <p>Date: {selectedEvent.date}</p>
-              <p>
-                Attendees:{' '}
-                {selectedEvent.attendees
-                  .map((attendee) => attendee.name || attendee.email)
-                  .join(', ')}
-              </p>
-              <p>Location: {selectedEvent.location}</p>
-              <p>Description: {selectedEvent.description}</p>
-              <p>Organizer: {selectedEvent.organizer}</p>
-              <p>Created: {selectedEvent.created}</p>
-              <p>Updated: {selectedEvent.updated}</p>
+              <VStack spacing={4} align="stretch">
+                <Text fontWeight="bold">Date & Time:</Text>
+                <Text>{prettyDate(selectedEvent.date)}</Text>
+                <Text fontWeight="bold">Location:</Text>
+                <Text>{selectedEvent.location}</Text>
+                <Text fontWeight="bold">Description:</Text>
+                <Text>{selectedEvent.description}</Text>
+                <Text fontWeight="bold">Organizer:</Text>
+                <Text>{selectedEvent.organizer}</Text>
+                <Text fontWeight="bold">Attendees:</Text>
+                {selectedEvent.attendees.map((attendee) => (
+                  <HStack key={attendee.email}>
+                    <VStack>
+                      <Text color="gray.500">
+                        {attendee.name || attendee.email}
+                      </Text>
+                    </VStack>
+                  </HStack>
+                ))}
+                <Text fontWeight="bold">Created:</Text>
+                <Text>{prettyDate(selectedEvent.created)}</Text>
+                <Text fontWeight="bold">Updated:</Text>
+                <Text>{prettyDate(selectedEvent.updated)}</Text>
+              </VStack>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
