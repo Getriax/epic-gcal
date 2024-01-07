@@ -7,3 +7,5 @@ cp -R app/dist/* public/
 
 firebase deploy --only hosting
 
+cd server
+./deploy.sh
