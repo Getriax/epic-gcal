@@ -1,0 +1,15 @@
+- `/epic-gcal`
+    - `/node_modules`
+    - `/src`
+        - `/components` (React components)
+        - `/pages` (React pages)
+        - `/context` (React context)
+        - `/api` (Express API routes)
+    - `/public`
+    - `/server`
+        - `/config` (Firebase and other configurations)
+        - `/controllers` (Express controllers)
+        - `/middleware` (Express middleware)
+    - `.env` (Environment variables)
+    - `package.json`
+    - `README.md`
