@@ -43,7 +43,7 @@ function App() {
           localStorage.setItem('auth', data.token);
           setIsLoggedIn(true);
         })
-        .catch((error) => console.error('Error:', error));
+        .catch((error) => console.error('Error fetching token:', error));
     }
   }, []);
 

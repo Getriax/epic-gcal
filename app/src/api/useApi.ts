@@ -2,7 +2,7 @@ import { IRequestOptions } from './request';
 import { disconnectUser, getRedirectUrl, getToken } from './auth.ts';
 import { getNextEvents } from './calendar.ts';
 
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = 'https://epic-5jvzkowqrq-lm.a.run.app/';
 
 export const useApi = () => {
   const token = localStorage.getItem('auth');

@@ -11,11 +11,12 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install production dependencies.
-RUN npm install --only=production
+RUN npm install --omit=dev
 
 # Copy local code to the container image.
 COPY . ./
 
+RUN npm install typescript
 RUN npm run build
 
 # Run the web service on container startup.
