@@ -11,6 +11,19 @@ function App() {
   const [events, setEvents] = useState<EventItem[]>([]);
 
   useEffect(() => {
+    const handleStorageChange = () => {
+      const auth = localStorage.getItem('auth');
+      setIsLoggedIn(auth != null);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
     const storedData = localStorage.getItem('auth');
     if (storedData) {
       setIsLoggedIn(true);
@@ -45,7 +58,6 @@ function App() {
   }, [isLoggedIn]);
 
   const handleLogout = () => {
-    // Implement logout logic here
     auth
       .disconnectUser({})
       .then(() => {

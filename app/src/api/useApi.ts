@@ -28,7 +28,20 @@ export const useApi = () => {
         ...(token && { Authorization: token }),
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log({ stat: response.status });
+        if (response.status === 401) {
+          console.error('Unauthorized');
+          localStorage.removeItem('auth');
+          return null;
+        }
+
+        if (['4', '5'].includes(response.status.toString()[0])) {
+          return null;
+        }
+
+        return response.json();
+      })
       .catch((error) => {
         console.error(error);
         return null;

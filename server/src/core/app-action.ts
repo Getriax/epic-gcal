@@ -17,17 +17,22 @@ export abstract class AppAction {
   }
 
   async getUserAuth(request: Request) {
-    const token = this.getAuthToken(request);
-    if (!token) {
+    try {
+      const token = this.getAuthToken(request);
+      if (!token) {
+        return {};
+      }
+
+      const email = await googleOAuth2Service.verifyToken(token);
+      if (!email) {
+        return {};
+      }
+
+      const credentials = await userAuthRepository.getUserToken(email);
+      return { email, credentials };
+    } catch (error) {
+      console.error('Error getting user auth:', error);
       return {};
     }
-
-    const email = await googleOAuth2Service.verifyToken(token);
-    if (!email) {
-      return {};
-    }
-
-    const credentials = await userAuthRepository.getUserToken(email);
-    return { email, credentials };
   }
 }
