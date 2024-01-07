@@ -1,5 +1,5 @@
 import { IRequestOptions } from './request';
-import { getRedirectUrl, getToken } from './auth.ts';
+import { disconnectUser, getRedirectUrl, getToken } from './auth.ts';
 import { getNextEvents } from './calendar.ts';
 
 const baseUrl = 'http://localhost:3000/';
@@ -39,6 +39,7 @@ export const useApi = () => {
     auth: {
       getRedirectUrl: getRedirectUrl(makeApiRequest),
       getToken: getToken(makeApiRequest),
+      disconnectUser: disconnectUser(makeApiRequest),
     },
     calendar: {
       getNextEvents: getNextEvents(makeApiRequest),

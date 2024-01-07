@@ -23,3 +23,10 @@ export const getToken = makeApiRequestProvider(
         query: { code },
       })
 );
+
+export const disconnectUser = makeApiRequestProvider(
+  (makeApiRequest: MakeApiRequestFunc<{ ok: boolean }>) => () =>
+    makeApiRequest('auth/disconnect', {
+      method: 'DELETE',
+    })
+);

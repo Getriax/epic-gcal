@@ -69,14 +69,14 @@ export const EventsTable: React.FC<EventsTableProps> = ({ events }) => {
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent borderRadius="lg" boxShadow="md">
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader>{selectedEvent.name}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <p>Date: {selectedEvent.date}</p>
               <p>
                 Attendees:{' '}
                 {selectedEvent.attendees
-                  .map((attendee) => attendee.name)
+                  .map((attendee) => attendee.name || attendee.email)
                   .join(', ')}
               </p>
               <p>Location: {selectedEvent.location}</p>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { GoogleSignInButton } from './compontents/GoogleSignInButton.tsx';
 import { useApi } from './api/useApi.ts';
 import { EventsTable } from './compontents/EventsTable.tsx';
@@ -44,13 +44,36 @@ function App() {
     });
   }, [isLoggedIn]);
 
+  const handleLogout = () => {
+    // Implement logout logic here
+    auth
+      .disconnectUser({})
+      .then(() => {
+        setIsLoggedIn(false);
+        localStorage.removeItem('auth');
+      })
+      .catch((error) =>
+        console.error('Error while disconnecting user:', error)
+      );
+  };
+
   return (
-    <Flex width="100vw" height="100vh" align="center" justify="center">
-      {!isLoggedIn && <GoogleSignInButton />}
-      {isLoggedIn && events && events.length > 0 && (
-        <EventsTable events={events} />
-      )}
-    </Flex>
+    <>
+      <Flex direction="column" align="right">
+        {/* ... other components */}
+        {isLoggedIn && (
+          <Button onClick={handleLogout} alignSelf="flex-end" m={4}>
+            Disconnect
+          </Button>
+        )}
+      </Flex>
+      <Flex width="100vw" height="100vh" align="center" justify="center">
+        {!isLoggedIn && <GoogleSignInButton />}
+        {isLoggedIn && events && events.length > 0 && (
+          <EventsTable events={events} />
+        )}
+      </Flex>
+    </>
   );
 }
 
