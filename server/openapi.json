@@ -29,7 +29,8 @@
     },
     "/auth/disconnect": {
       "delete": {
-        "summary": "Disconnect user from app, removing all data associated with them",
+        "summary": "Disconnect user",
+        "description": "Disconnect user from app, removing all data associated with them",
         "responses": {
           "200": {
             "description": "Successful response",
@@ -52,6 +53,7 @@
     "/auth/token": {
       "get": {
         "summary": "Get token",
+        "description": "Get token by exchanging google oauth code",
         "parameters": [
           {
             "in": "query",
@@ -84,6 +86,7 @@
     "/calendar/events": {
       "get": {
         "summary": "Get next events",
+        "description": "Get user next 10 calendar events",
         "responses": {
           "200": {
             "description": "Successful response",
