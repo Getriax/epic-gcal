@@ -1,8 +1,23 @@
 import { MakeApiRequestFunc, makeApiRequestProvider } from './request.ts';
-import { UrlResponse } from './auth.ts';
+
+export interface EventItem {
+  name: string;
+  date: string;
+  attendees: Attendee[];
+  location: string;
+  description: string;
+  organizer: string;
+  created: string;
+  updated: string;
+}
+
+export interface Attendee {
+  name: string;
+  email: string;
+}
 
 export const getNextEvents = makeApiRequestProvider(
-  (makeApiRequest: MakeApiRequestFunc<UrlResponse>) => () =>
+  (makeApiRequest: MakeApiRequestFunc<{ events: EventItem[] }>) => () =>
     makeApiRequest('calendar/events', {
       method: 'GET',
       auth: true,
