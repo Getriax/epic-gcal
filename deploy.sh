@@ -1,5 +1,5 @@
 cd app
-npm run build
+VITE_BACKEND_URL=https://epic-5jvzkowqrq-lm.a.run.app/ npm run build
 
 cd ..
 rm -rf public/*
