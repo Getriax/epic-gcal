@@ -10,6 +10,18 @@ The idea of this app is to allow users to connect with their google account and 
 * Server is hosted via cloud run, api docs available under the link
   * https://epic-5jvzkowqrq-lm.a.run.app/docs
 
+## Run the app locally
+To run the app locally there is docker-compose available, but before you need to set-up environment variables
+```
+ $ cd server
+ $ cp env.example .env #fill-up the envrionment variables
+```
+afterward simply run:
+```
+docker-compose up --build
+```
+The app will be available on port 3000 while the server is running on 3001
+
 ## Technologies
 
 ### Frontend
@@ -38,10 +50,12 @@ The idea of this app is to allow users to connect with their google account and 
 - `public`: Contains publicly accessible files.
 - `app`: Frontend application folder.
 - `server`: Backend server folder.
+- `docker-compose`: Docker Compose configuration to start the app locally.
 
 ### App Directory
 
 - `index.html`: Entry HTML file for the frontend.
+- `Dockerfile`: Instructions for Docker to build the frontend app and serve the content with nginx.
 - `dist`: Compiled and bundled files ready for deployment.
 - `public`: Publicly accessible files for the app.
 - `vite.config.ts`: Configuration file for Vite.
