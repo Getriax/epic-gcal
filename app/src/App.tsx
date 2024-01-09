@@ -42,6 +42,7 @@ function App() {
 
           localStorage.setItem('auth', data.token);
           setIsLoggedIn(true);
+          window.location.href = window.location.href.split('?')[0];
         })
         .catch((error) => console.error('Error fetching token:', error));
     }
