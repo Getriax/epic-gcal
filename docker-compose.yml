@@ -1,0 +1,30 @@
+version: '3.2'
+services:
+  epic-backend:
+    container_name: epic_backend
+    image: epic_backed
+    build: ./server
+    environment:
+      PORT: 3001
+    ports:
+      - '3001:3001'
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+
+  epic-frontend:
+    container_name: epic_frontend
+    build:
+      context: ./app
+      args:
+        VITE_BACKEND_URL: 'http://localhost:3001/'
+    image: epic_frontend
+    restart: unless-stopped
+    ports:
+      - '3000:80'
+    depends_on:
+      - epic-backend
+    volumes:
+      - ./app:/app
+
+

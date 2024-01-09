@@ -2,7 +2,7 @@ import { IRequestOptions } from './request';
 import { disconnectUser, getRedirectUrl, getToken } from './auth.ts';
 import { getNextEvents } from './calendar.ts';
 
-const baseUrl = 'https://epic-5jvzkowqrq-lm.a.run.app/';
+const baseUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const useApi = () => {
   const token = localStorage.getItem('auth');
@@ -19,6 +19,11 @@ export const useApi = () => {
       options.query && Object.keys(options.query).length > 0
         ? `?${new URLSearchParams(options.query).toString()}`
         : '';
+
+    console.log({
+      baseUrl,
+      uri
+    })
 
     return fetch(`${baseUrl}${uri}${queryString}`, {
       method: options.method || 'GET',

@@ -9,8 +9,6 @@ export class GetGoogleAuthUrlAction extends AppAction {
   async process(request: Request, response: Response): Promise<void> {
     const url = googleOAuth2Service.getAuthUrl();
 
-    console.log({ url });
-
     response.json({ url });
   }
 }
